@@ -1,8 +1,15 @@
 <template>
   <DefaultLayout title="Habit Tracker">
+    <template #above-container>
+      <IonFab slot="fixed" vertical="bottom" horizontal="end">
+        <IonFabButton router-link="/add-habit">
+          <IonIcon :icon="addOutline" />
+        </IonFabButton>
+      </IonFab>
+    </template>
     <p>Acompanhe o progresso dos seus hábitos aqui!</p>
 
-    <div class="habit-item" v-for="(habit, index) in habits" :key="index">
+    <div class="card habit-item" v-for="(habit, index) in habits" :key="index">
       <span class="habit-item-name">{{ habit.name }}</span>
 
       <span class="habit-item-days">{{ calculateDateDifference(habit.startDate) }}</span>
@@ -32,18 +39,13 @@
       @cancel="closeModalEditHabit"
       @save="saveHabit"
     />
-
-    <IonButton name="add-habit" class="button" router-link="/add-habit" icon-left="add-circle-outline" expand="block">
-      <IonIcon slot="start" :icon="addCircleOutline" />
-      Adicionar
-    </IonButton>
   </DefaultLayout>
 </template>
 
 <script lang="ts">
 import { defineComponent } from 'vue';
-import { IonButton, IonIcon } from '@ionic/vue';
-import { addCircleOutline, trashOutline, calendarOutline } from 'ionicons/icons';
+import { IonButton, IonIcon, IonFab, IonFabButton } from '@ionic/vue';
+import { addOutline, addCircleOutline, trashOutline, calendarOutline } from 'ionicons/icons';
 import DefaultLayout from '@/components/DefaultLayout.vue';
 import ModalConfirm from '@/components/ModalConfirm.vue';
 import ModalEditHabit from '@/components/ModalEditHabit.vue';
@@ -57,11 +59,14 @@ export default defineComponent({
     ModalConfirm,
     ModalEditHabit,
     IonButton,
-    IonIcon
+    IonIcon,
+    IonFab,
+    IonFabButton
   },
   data() {
     return {
       calculateDateDifference,
+      addOutline,
       addCircleOutline,
       calendarOutline,
       trashOutline,
@@ -124,17 +129,12 @@ export default defineComponent({
 
 <style>
 .habit-item {
-  background-color: #ffffff;
-  border-radius: 8px;
-  padding: 10px;
   display: grid;
   grid-template:
     'name actions'
     'days actions';
   grid-template-columns: 1fr 50px;
   align-items: center;
-  justify-content: space-between;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
 }
 
 .habit-item-name {

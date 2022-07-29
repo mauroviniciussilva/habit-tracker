@@ -1,9 +1,10 @@
 <template>
   <IonModal ref="modal" :presenting-element="$parent.$el" :is-open="isActive">
-    <TheHeader :title="name" />
+    <TheHeader :title="name || ''" />
     <IonContent>
       <div id="container">
-        <TheInput v-model="startDate" type="date" label="Data de Início" />
+        <IonButton expand="block" color="secondary" @click="setDateStartToToday">Hoje</IonButton>
+        <IonDatetime v-model="startDate" presentation="date" color="secondary" :max="todayISO" style="margin: auto" />
         <IonRow>
           <IonCol>
             <IonButton @click="$emit('cancel')" class="button" expand="block" color="light">Cancelar</IonButton>
@@ -18,10 +19,9 @@
 </template>
 
 <script lang="ts">
-import { IonButton, IonModal, IonContent, IonRow, IonCol } from '@ionic/vue';
+import { IonButton, IonModal, IonContent, IonRow, IonCol, IonDatetime } from '@ionic/vue';
 import { defineComponent } from 'vue';
 import TheHeader from '@/components/TheHeader.vue';
-import TheInput from '@/components/TheInput.vue';
 
 export default defineComponent({
   name: 'ModalEditHabit',
@@ -32,8 +32,8 @@ export default defineComponent({
     IonContent,
     TheHeader,
     IonRow,
-    TheInput,
-    IonCol
+    IonCol,
+    IonDatetime
   },
   props: {
     isActive: {
@@ -53,13 +53,20 @@ export default defineComponent({
       }
     }
   },
-  data() {
+  data(): { name: string | null; startDate: string | null; todayISO: string } {
     return {
       name: null,
-      startDate: null
+      startDate: null,
+      todayISO: new Date().toISOString()
     };
   },
   watch: {
+    isActive(newValue) {
+      if (newValue) {
+        this.name = this.habit?.name || null;
+        this.startDate = this.habit?.startDate || null;
+      }
+    },
     habit(newValue) {
       this.name = newValue?.name || null;
       this.startDate = newValue?.startDate || null;
@@ -69,6 +76,10 @@ export default defineComponent({
     this.name = this.habit?.name || null;
     this.startDate = this.habit?.startDate || null;
   },
-  methods: {}
+  methods: {
+    setDateStartToToday() {
+      this.startDate = new Date().toISOString();
+    }
+  }
 });
 </script>

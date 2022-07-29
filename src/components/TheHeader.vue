@@ -1,6 +1,6 @@
 <template>
   <IonHeader class="the-header">
-    <IonToolbar>
+    <IonToolbar class="the-header-toolbar">
       <IonButtons slot="start" v-if="showBack">
         <IonBackButton default-href="/home"></IonBackButton>
       </IonButtons>
@@ -37,3 +37,10 @@ export default defineComponent({
   }
 });
 </script>
+
+<style>
+.the-header-toolbar {
+  --background: #1e1e1e;
+  --border-width: 0px !important;
+}
+</style>

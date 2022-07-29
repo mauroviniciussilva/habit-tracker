@@ -37,7 +37,7 @@ export default defineComponent({
     };
   },
   watch: {
-    modalValue(newValue) {
+    modelValue(newValue) {
       this.value = newValue;
     },
     value(newValue) {
@@ -60,6 +60,8 @@ export default defineComponent({
 
 .the-input > input {
   background-color: white !important;
+  color: #1e1e1e !important;
+  padding: 10px !important;
   border-radius: 6px !important;
 }
 </style>

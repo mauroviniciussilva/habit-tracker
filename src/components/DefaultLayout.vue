@@ -2,6 +2,7 @@
   <IonPage>
     <IonContent :fullscreen="true">
       <TheHeader :title="title" :show-back="showBack" />
+      <slot name="above-container"></slot>
       <div id="container">
         <slot></slot>
       </div>
