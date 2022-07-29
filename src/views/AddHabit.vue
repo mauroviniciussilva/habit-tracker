@@ -3,7 +3,7 @@
     <TheInput v-model="form.name" label="Nome" />
     <TheInput v-model="form.startDate" type="date" label="Data de Início" />
 
-    <IonButton @click="save" class="ion-margin-top" expand="full">Salvar</IonButton>
+    <IonButton @click="save" class="ion-margin-top button" expand="block">Salvar</IonButton>
   </DefaultLayout>
 </template>
 

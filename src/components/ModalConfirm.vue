@@ -7,10 +7,10 @@
         <p class="ion-text-center">{{ description }}</p>
         <IonRow>
           <IonCol>
-            <IonButton @click="$emit('cancel')" expand="full" color="light">Cancelar</IonButton>
+            <IonButton @click="$emit('cancel')" class="button" expand="block" color="light">Cancelar</IonButton>
           </IonCol>
           <IonCol>
-            <IonButton @click="$emit('confirm')" expand="full" color="primary">Confirmar</IonButton>
+            <IonButton @click="$emit('confirm')" class="button" expand="block" color="primary">Confirmar</IonButton>
           </IonCol>
         </IonRow>
       </div>

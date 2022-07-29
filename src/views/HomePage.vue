@@ -1,17 +1,17 @@
 <template>
   <DefaultLayout title="Habit Tracker">
-    <div>
-      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum vulputate venenatis nisl sit amet egestas. Quisque non dui ac metus interdum
-      semper.
-    </div>
+    <p>Acompanhe o progresso dos seus hábitos aqui!</p>
 
     <div class="habit-item" v-for="(habit, index) in habits" :key="index">
-      <span>{{ habit.name }}</span>
+      <span class="habit-item-name">{{ habit.name }}</span>
 
-      <div class="habit-item-end">
-        <span>{{ calculateDateDifference(habit.startDate) }}</span>
+      <span class="habit-item-days">{{ calculateDateDifference(habit.startDate) }}</span>
 
-        <IonButton fill="clear" class="delete-button" @click="() => deleteHabit(index)">
+      <div class="habit-item-actions">
+        <IonButton fill="clear" class="edit-button" size="small" @click="() => editHabit(index)">
+          <IonIcon :icon="calendarOutline" color="primary" />
+        </IonButton>
+        <IonButton fill="clear" class="delete-button" size="small" @click="() => deleteHabit(index)">
           <IonIcon :icon="trashOutline" color="danger" />
         </IonButton>
       </div>
@@ -25,7 +25,15 @@
       title="Confirmar Exclusão de Hábito"
     />
 
-    <IonButton name="add-habit" router-link="/add-habit" icon-left="add-circle-outline" expand="full">
+    <ModalEditHabit
+      trigger="edit-habit"
+      :habit="habits[habitIndexToEdit]"
+      :is-active="isModalEditActive"
+      @cancel="closeModalEditHabit"
+      @save="saveHabit"
+    />
+
+    <IonButton name="add-habit" class="button" router-link="/add-habit" icon-left="add-circle-outline" expand="block">
       <IonIcon slot="start" :icon="addCircleOutline" />
       Adicionar
     </IonButton>
@@ -35,9 +43,10 @@
 <script lang="ts">
 import { defineComponent } from 'vue';
 import { IonButton, IonIcon } from '@ionic/vue';
-import { addCircleOutline, trashOutline } from 'ionicons/icons';
+import { addCircleOutline, trashOutline, calendarOutline } from 'ionicons/icons';
 import DefaultLayout from '@/components/DefaultLayout.vue';
 import ModalConfirm from '@/components/ModalConfirm.vue';
+import ModalEditHabit from '@/components/ModalEditHabit.vue';
 import storage from '@/store';
 import calculateDateDifference from '@/utils/calculateDateDifference';
 
@@ -46,6 +55,7 @@ export default defineComponent({
   components: {
     DefaultLayout,
     ModalConfirm,
+    ModalEditHabit,
     IonButton,
     IonIcon
   },
@@ -53,10 +63,13 @@ export default defineComponent({
     return {
       calculateDateDifference,
       addCircleOutline,
+      calendarOutline,
       trashOutline,
+      habitIndexToEdit: -1,
       habitIndexToDelete: -1,
+      isModalEditActive: false,
       isModalDeleteActive: false,
-      habits: []
+      habits: [] as Array<{ name: string; startDate: Date }>
     };
   },
   async created() {
@@ -75,6 +88,13 @@ export default defineComponent({
       this.habitIndexToDelete = index;
       this.isModalDeleteActive = true;
     },
+    editHabit(index: number) {
+      this.habitIndexToEdit = index;
+      this.isModalEditActive = true;
+    },
+    closeModalEditHabit() {
+      this.isModalEditActive = false;
+    },
     closeModalDeleteHabit() {
       this.isModalDeleteActive = false;
     },
@@ -85,6 +105,18 @@ export default defineComponent({
       await storage.set('habits', JSON.stringify(this.habits));
 
       this.closeModalDeleteHabit();
+    },
+    async saveHabit(startDate: Date) {
+      const habit = this.habits[this.habitIndexToEdit];
+
+      habit.startDate = startDate;
+
+      this.habits.splice(this.habitIndexToDelete, 1, habit);
+      this.habitIndexToEdit = -1;
+
+      await storage.set('habits', JSON.stringify(this.habits));
+
+      this.closeModalEditHabit();
     }
   }
 });
@@ -95,9 +127,30 @@ export default defineComponent({
   background-color: #ffffff;
   border-radius: 8px;
   padding: 10px;
-  display: flex;
+  display: grid;
+  grid-template:
+    'name actions'
+    'days actions';
+  grid-template-columns: 1fr 50px;
   align-items: center;
   justify-content: space-between;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+}
+
+.habit-item-name {
+  grid-area: name;
+  text-align: center;
+  font-weight: 600;
+}
+
+.habit-item-days {
+  grid-area: days;
+  letter-spacing: 1px;
+  font-size: 0.85em;
+  text-align: center;
+}
+.habit-item-actions {
+  grid-area: actions;
 }
 
 .habit-item:not(:first-child) {
@@ -115,7 +168,12 @@ export default defineComponent({
   margin-top: 16px;
 }
 
-.delete-button.button button {
+.button-native {
+  padding: 0px;
+}
+
+.delete-button.button button,
+.edit-button.button button {
   padding: 0px;
 }
 </style>

@@ -1,12 +1,12 @@
 <template>
-  <ion-header class="the-header">
-    <ion-toolbar>
-      <ion-buttons slot="start" v-if="showBack">
-        <ion-back-button default-href="/home"></ion-back-button>
-      </ion-buttons>
-      <ion-title>{{ title }}</ion-title>
-    </ion-toolbar>
-  </ion-header>
+  <IonHeader class="the-header">
+    <IonToolbar>
+      <IonButtons slot="start" v-if="showBack">
+        <IonBackButton default-href="/home"></IonBackButton>
+      </IonButtons>
+      <IonTitle>{{ title }}</IonTitle>
+    </IonToolbar>
+  </IonHeader>
 </template>
 
 <script lang="ts">
@@ -37,9 +37,3 @@ export default defineComponent({
   }
 });
 </script>
-
-<style>
-.the-header * {
-  color: white !important;
-}
-</style>

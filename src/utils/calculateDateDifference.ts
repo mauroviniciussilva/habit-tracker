@@ -14,5 +14,7 @@ export default function calculateDateDifference(date: string | Date) {
 
   const days = today.diff(daysReferenceDate, 'days', false);
 
+  if (!years && !months && !days) return '0 dias';
+
   return `${years ? `${years} anos ` : ''}${months ? `${months} meses ` : ''} ${days ? `${days} dias` : ''}`;
 }
