@@ -7,10 +7,17 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue';
+import { useI18n } from 'vue-i18n';
+
 import { IonInput } from '@ionic/vue';
 
 export default defineComponent({
   name: 'TheInput',
+  setup() {
+    const { t } = useI18n({ useScope: 'global' });
+
+    return { t };
+  },
   emits: ['update:modelValue'],
   components: { IonInput },
   props: {
@@ -28,7 +35,10 @@ export default defineComponent({
     },
     placeholder: {
       type: String,
-      default: 'Digite'
+      default: () => {
+        const { t } = useI18n({ useScope: 'global' });
+        return t('input.placeholder');
+      }
     }
   },
   data() {

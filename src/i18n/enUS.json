@@ -1,0 +1,21 @@
+{
+    "name": "Name",
+    "save": "Save",
+    "today": "Today",
+    "confirm": "Confirm",
+    "cancel": "Cancel",
+    "input": {
+        "placeholder": "Type"
+    },
+    "homepage": {
+        "description": "Track your habit progress here!",
+        "confirmDeleteHabitTitle": "Confirm Delete Habit"
+    },
+    "addHabit": {
+        "title": "Add Habit"
+    },
+    "modalConfirm": {
+        "title": "Confirm Action",
+        "description": "Are you sure you want to do that?"
+    }
+}

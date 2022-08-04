@@ -1,16 +1,15 @@
 <template>
   <IonModal ref="modal" :presenting-element="$parent.$el" :is-open="isActive">
     <TheHeader :title="title" />
-
     <IonContent>
       <div id="container">
         <p class="ion-text-center">{{ description }}</p>
         <IonRow>
           <IonCol>
-            <IonButton @click="$emit('cancel')" class="button" expand="block" color="light">Cancelar</IonButton>
+            <IonButton @click="$emit('cancel')" class="button" expand="block" color="light">{{ t('cancel') }}</IonButton>
           </IonCol>
           <IonCol>
-            <IonButton @click="$emit('confirm')" class="button" expand="block" color="primary">Confirmar</IonButton>
+            <IonButton @click="$emit('confirm')" class="button" expand="block" color="primary">{{ t('confirm') }}</IonButton>
           </IonCol>
         </IonRow>
       </div>
@@ -19,12 +18,19 @@
 </template>
 
 <script lang="ts">
-import { IonButton, IonModal, IonContent, IonRow, IonCol } from '@ionic/vue';
 import { defineComponent } from 'vue';
+import { useI18n } from 'vue-i18n';
+
+import { IonButton, IonModal, IonContent, IonRow, IonCol } from '@ionic/vue';
 import TheHeader from '@/components/TheHeader.vue';
 
 export default defineComponent({
   name: 'ModalConfirm',
+  setup() {
+    const { t } = useI18n({ useScope: 'global' });
+
+    return { t };
+  },
   emits: ['cancel', 'confirm'],
   components: {
     IonButton,
@@ -41,11 +47,19 @@ export default defineComponent({
     },
     title: {
       type: String,
-      default: 'Confirmar Ação'
+      default: () => {
+        const { t } = useI18n({ useScope: 'global' });
+
+        return t('modalConfirm.title');
+      }
     },
     description: {
       type: String,
-      default: 'Você tem certeza que deseja realizar essa ação?'
+      default: () => {
+        const { t } = useI18n({ useScope: 'global' });
+
+        return t('modalConfirm.description');
+      }
     }
   },
   data() {

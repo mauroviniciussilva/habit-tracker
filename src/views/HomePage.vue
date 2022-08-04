@@ -7,13 +7,11 @@
         </IonFabButton>
       </IonFab>
     </template>
-    <p>Acompanhe o progresso dos seus hábitos aqui!</p>
+    <p>{{ t('homepage.description') }}</p>
 
     <div class="card habit-item" v-for="(habit, index) in habits" :key="index">
       <span class="habit-item-name">{{ habit.name }}</span>
-
       <span class="habit-item-days">{{ calculateDateDifference(habit.startDate) }}</span>
-
       <div class="habit-item-actions">
         <IonButton fill="clear" class="edit-button" size="small" @click="() => editHabit(index)">
           <IonIcon :icon="calendarOutline" color="primary" />
@@ -29,7 +27,7 @@
       :is-active="isModalDeleteActive"
       @cancel="closeModalDeleteHabit"
       @confirm="confirmDeleteHabit"
-      title="Confirmar Exclusão de Hábito"
+      :title="t('homepage.confirmDeleteHabitTitle')"
     />
 
     <ModalEditHabit
@@ -44,6 +42,7 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue';
+import { useI18n } from 'vue-i18n';
 import { IonButton, IonIcon, IonFab, IonFabButton } from '@ionic/vue';
 import { addOutline, addCircleOutline, trashOutline, calendarOutline } from 'ionicons/icons';
 import DefaultLayout from '@/components/DefaultLayout.vue';
@@ -53,6 +52,11 @@ import storage from '@/store';
 import calculateDateDifference from '@/utils/calculateDateDifference';
 
 export default defineComponent({
+  setup() {
+    const { t } = useI18n({ useScope: 'global' });
+
+    return { t };
+  },
   name: 'HomePage',
   components: {
     DefaultLayout,

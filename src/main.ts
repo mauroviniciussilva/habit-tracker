@@ -1,4 +1,6 @@
 import { createApp } from 'vue';
+import { createI18n } from 'vue-i18n';
+
 import App from './App.vue';
 import router from './router';
 
@@ -25,7 +27,25 @@ import '@ionic/vue/css/display.css';
 import './theme/variables.css';
 import './theme/utils.css';
 
-const app = createApp(App).use(IonicVue).use(router);
+/* Internationalization */
+import enUS from '@/i18n/enUS.json';
+import ptBR from '@/i18n/ptBR.json';
+
+const i18n = createI18n({
+  legacy: false,
+  locale: 'en-US' /*window.navigator.language */,
+  globalInjection: true,
+  messages: {
+    'en-US': enUS,
+    'pt-BR': ptBR
+  }
+});
+
+const app = createApp(App);
+app.use(IonicVue);
+app.use(router);
+
+app.use(i18n);
 
 router.isReady().then(async () => {
   const store = new Storage();

@@ -1,0 +1,21 @@
+{
+    "name": "Nome",
+    "today": "Hoje",
+    "cancel": "Cancelar",
+    "confirm": "Confirmar",
+    "save": "Salvar",
+    "input": {
+        "placeholder": "Digite"
+    },
+    "homepage": {
+        "description": "Acompanhe o progresso dos seus hábitos aqui!",
+        "confirmDeleteHabitTitle": "Confirmar Exclusão de Hábito"
+    },
+    "addHabit": {
+        "title": "Adicionar Hábito"
+    },
+    "modalConfirm": {
+        "title": "Confirmar Ação",
+        "description": "Você tem certeza que deseja realizar essa ação?"
+    }
+}

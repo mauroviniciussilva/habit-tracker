@@ -37,12 +37,9 @@ export default defineComponent({
 
 <style>
 #container {
-  /* text-align: center; */
   position: absolute;
   padding: 20px;
   left: 0;
   right: 0;
-  /* top: 50%;
-  transform: translateY(-50%); */
 }
 </style>

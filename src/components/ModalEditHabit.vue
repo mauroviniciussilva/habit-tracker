@@ -3,14 +3,14 @@
     <TheHeader :title="name || ''" />
     <IonContent>
       <div id="container">
-        <IonButton expand="block" color="secondary" @click="setDateStartToToday">Hoje</IonButton>
+        <IonButton expand="block" color="secondary" @click="setDateStartToToday">{{ t('today') }}</IonButton>
         <IonDatetime v-model="startDate" presentation="date" color="secondary" :max="todayISO" style="margin: auto" />
         <IonRow>
           <IonCol>
-            <IonButton @click="$emit('cancel')" class="button" expand="block" color="light">Cancelar</IonButton>
+            <IonButton @click="$emit('cancel')" class="button" expand="block" color="light">{{ t('cancel') }}</IonButton>
           </IonCol>
           <IonCol>
-            <IonButton @click="$emit('save', startDate)" class="button" expand="block" color="primary">Confirmar</IonButton>
+            <IonButton @click="$emit('save', startDate)" class="button" expand="block" color="primary">{{ t('confirm') }}</IonButton>
           </IonCol>
         </IonRow>
       </div>
@@ -19,12 +19,19 @@
 </template>
 
 <script lang="ts">
-import { IonButton, IonModal, IonContent, IonRow, IonCol, IonDatetime } from '@ionic/vue';
 import { defineComponent } from 'vue';
+import { useI18n } from 'vue-i18n';
+
+import { IonButton, IonModal, IonContent, IonRow, IonCol, IonDatetime } from '@ionic/vue';
 import TheHeader from '@/components/TheHeader.vue';
 
 export default defineComponent({
   name: 'ModalEditHabit',
+  setup() {
+    const { t } = useI18n({ useScope: 'global' });
+
+    return { t };
+  },
   emits: ['cancel', 'save'],
   components: {
     IonButton,
