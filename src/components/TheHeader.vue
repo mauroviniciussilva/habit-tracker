@@ -6,14 +6,16 @@
       </IonButtons>
       <IonTitle>{{ title }}</IonTitle>
       <IonButtons slot="end">
-        <IonIcon :icon="cogOutline" size="medium" />
+        <IonButton v-show="!isSettingsRoute" router-link="/settings" color="light">
+          <IonIcon :icon="cogOutline" size="medium" />
+        </IonButton>
       </IonButtons>
     </IonToolbar>
   </IonHeader>
 </template>
 
 <script lang="ts">
-import { IonHeader, IonIcon, IonTitle, IonToolbar, IonBackButton, IonButtons } from '@ionic/vue';
+import { IonHeader, IonIcon, IonTitle, IonToolbar, IonBackButton, IonButton, IonButtons } from '@ionic/vue';
 import { cogOutline } from 'ionicons/icons';
 import { defineComponent } from 'vue';
 
@@ -25,6 +27,7 @@ export default defineComponent({
     IonTitle,
     IonToolbar,
     IonButtons,
+    IonButton,
     IonBackButton
   },
   props: {
@@ -41,6 +44,11 @@ export default defineComponent({
     return {
       cogOutline
     };
+  },
+  computed: {
+    isSettingsRoute() {
+      return this.$route.path === '/settings';
+    }
   }
 });
 </script>

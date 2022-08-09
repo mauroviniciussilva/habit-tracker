@@ -17,5 +17,16 @@
     "modalConfirm": {
         "title": "Confirmar Ação",
         "description": "Você tem certeza que deseja realizar essa ação?"
+    },
+    "settings": {
+        "title": "Configurações",
+        "generalSettings": "Configurações Gerais",
+        "selectLanguage": "Selecione o idioma",
+        "notifications": "Notificações",
+        "other": "Outros",
+        "clearData": "Limpar dados",
+        "enabledNotification": "Habilitar notificações",
+        "confirmClearData": "Você tem certeza que deseja apagar todos os dados do aplicativo? Esta ação não poderá ser desfeita!",
+        "clearingData": "Limpando dados"
     }
 }

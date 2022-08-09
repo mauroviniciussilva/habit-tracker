@@ -52,12 +52,12 @@ import storage from '@/store';
 import calculateDateDifference from '@/utils/calculateDateDifference';
 
 export default defineComponent({
+  name: 'HomePage',
   setup() {
     const { t } = useI18n({ useScope: 'global' });
 
     return { t };
   },
-  name: 'HomePage',
   components: {
     DefaultLayout,
     ModalConfirm,

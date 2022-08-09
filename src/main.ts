@@ -33,7 +33,7 @@ import ptBR from '@/i18n/ptBR.json';
 
 const i18n = createI18n({
   legacy: false,
-  locale: 'en-US' /*window.navigator.language */,
+  locale: window.navigator.language,
   globalInjection: true,
   messages: {
     'en-US': enUS,

@@ -17,5 +17,16 @@
     "modalConfirm": {
         "title": "Confirm Action",
         "description": "Are you sure you want to do that?"
+    },
+    "settings": {
+        "title": "Settings",
+        "generalSettings": "General Settings",
+        "selectLanguage": "Select Language",
+        "notifications": "Notifications",
+        "other": "Other",
+        "clearData": "Clear data",
+        "enabledNotification": "Enabled notification",
+        "confirmClearData": "Are you sure do you want to delete all the app data? This action cannot be undone!",
+        "clearingData": "Clearing data"
     }
 }
