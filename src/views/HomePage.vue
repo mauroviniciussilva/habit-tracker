@@ -51,6 +51,8 @@ import ModalEditHabit from '@/components/ModalEditHabit.vue';
 import storage from '@/store';
 import calculateDateDifference from '@/utils/calculateDateDifference';
 
+type Habit = { name: string; startDate: Date };
+
 export default defineComponent({
   name: 'HomePage',
   setup() {
@@ -78,7 +80,7 @@ export default defineComponent({
       habitIndexToDelete: -1,
       isModalEditActive: false,
       isModalDeleteActive: false,
-      habits: [] as Array<{ name: string; startDate: Date }>
+      habits: [] as Habit[]
     };
   },
   async created() {

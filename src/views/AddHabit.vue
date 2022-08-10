@@ -12,6 +12,8 @@ import { defineComponent } from 'vue';
 import { useI18n } from 'vue-i18n';
 
 import { IonButton, IonDatetime } from '@ionic/vue';
+import { NotificationService } from '@/utils/NotificationService';
+
 import storage from '@/store';
 import DefaultLayout from '@/components/DefaultLayout.vue';
 import TheInput from '@/components/TheInput.vue';
@@ -49,6 +51,8 @@ export default defineComponent({
       habits.push(this.form);
 
       await storage.set('habits', JSON.stringify(habits));
+
+      NotificationService.sendNotification();
 
       this.$router.push('/');
     }

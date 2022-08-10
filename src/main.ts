@@ -7,6 +7,8 @@ import router from './router';
 import { IonicVue } from '@ionic/vue';
 import { Storage } from '@ionic/storage';
 
+import { NotificationService } from '@/utils/NotificationService';
+
 /* Core CSS required for Ionic components to work properly */
 import '@ionic/vue/css/core.css';
 
@@ -31,6 +33,8 @@ import './theme/utils.css';
 import enUS from '@/i18n/enUS.json';
 import ptBR from '@/i18n/ptBR.json';
 
+NotificationService.init();
+
 const i18n = createI18n({
   legacy: false,
   locale: window.navigator.language,
@@ -44,7 +48,6 @@ const i18n = createI18n({
 const app = createApp(App);
 app.use(IonicVue);
 app.use(router);
-
 app.use(i18n);
 
 router.isReady().then(async () => {

@@ -37,10 +37,11 @@ import { useI18n } from 'vue-i18n';
 import { defineComponent } from '@vue/runtime-core';
 import { IonSelect, IonSelectOption, IonButton, IonLabel, IonToggle, loadingController } from '@ionic/vue';
 
+import { NotificationService } from '@/utils/NotificationService';
 import DefaultLayout from '@/components/DefaultLayout.vue';
 import ModalConfirm from '@/components/ModalConfirm.vue';
 
-import store from '@/store';
+import storage from '@/store';
 
 export default defineComponent({
   name: 'SettingsPage',
@@ -70,6 +71,11 @@ export default defineComponent({
       }
     };
   },
+  watch: {
+    'notification.enabled': async function watcherEnabledNotification(consent) {
+      await NotificationService.setUserConsent(consent);
+    }
+  },
   methods: {
     clearStorage() {
       this.isModalClearDataActive = true;
@@ -84,7 +90,9 @@ export default defineComponent({
 
       await loading.present();
 
-      await store.clear();
+      await storage.clear();
+
+      await storage.set('habits', JSON.stringify([]));
 
       await loading.dismiss();
     }
